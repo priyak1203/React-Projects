@@ -1,5 +1,5 @@
-##### Values JS
+# Values JS
 
-# library used
+#### library used
 
 [values.js](https://github.com/noeldelgado/values.js)
