@@ -1,0 +1,62 @@
+Notes 
+
+Scroll Photos solution
+
+Initially fetch is called twice because of React.Strictmode version 18 changes.
+
+State Values used 
+loading - checks whether the data is being fetched.
+photos - used to store the results.
+page - points to the current page.
+query - used to store search value or string.
+newImages - indicated when the scroll end has reached and time to fetch the data.
+mounted - helps to avoid running of useEffect on initial render for scroll functionality.
+
+fetchImages 
+- url is constructed based on whether the search value is present or not. 
+- if there is query and page is 1 then remove the old results and replace it with the current 
+result, else append the result to the end of the array.
+
+
+useEffect 1 - dependency array - page
+-runs on initial render and every time the page value changes.
+- fetch the images.
+
+useEffect 2 - dependency array - newImages 
+- ideally runs on initial render and every time the newImages value changes.
+- do not want it to run on initial render.
+- want it to run only when newImages is true.
+
+logic
+- check mounted value,  if false set it to true and return; 
+this avoids running the useEffect on inital render.
+- check loading if true then return
+this avoids running the useEffect when the data is being fetched.
+- check newImages if false then return
+this avoids running the useEffect when newImages value is false.
+increment the page value by 1, this triggers the first useEffect and images are fetched as 
+a result of that. 
+
+
+scrollEvent
+- checks whether the scroll has reached the end of the page
+- window.innerHeight+ window.scrollY >= document.body.scrollHeight - 2
+set newImages to true if the scroll has reached the end of the page.
+
+useEffect 3 - dependency array - []
+- runs on initial render and all the renders.
+- listen for the scroll event, also write the clean up function by removing the eventlistener.
+
+handleSubmit
+- runs when the form is submitted.
+- if there is no query then do nothing and return
+- if page is 1 then fetchImages. 
+By default page is 1, so the first useEffect will not run on first submit. 
+therefore fetch images directly when page is 1.
+- if page is not 1 then setPage to 1 
+This makes the search result to be displayed on the first page in case page value is not 1
+when the query is submitted.
+
+
+
+
