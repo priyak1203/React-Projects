@@ -27,7 +27,12 @@ const Stories = () => {
                   <span>{author} | </span> {comments} comments
                 </p>
                 <div>
-                  <a href={url} target="_blank" className="read-link">
+                  <a
+                    href={url}
+                    target="_blank"
+                    className="read-link"
+                    rel="noopener noreferrer"
+                  >
                     read more
                   </a>
                   <button
